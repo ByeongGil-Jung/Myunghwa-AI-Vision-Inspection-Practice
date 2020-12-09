@@ -1,0 +1,12 @@
+{
+    "eop_data_directory_path": "D:\\AI_Lab\\MH\\git\\newnewnew\\Myunghwa-AI-Vision-Inspection-Practice\\data\\sample",
+
+    "label_file_name": "label.csv",
+    "label_csv_separate": ",",
+
+    "housing_NG_directory_name": "EOP_Housing_NG",
+    "housing_OK_directory_name": "EOP_Housing_OK",
+
+    "cover_NG_directory_name": "EOP_Cover_NG",
+    "cover_OK_directory_name": "EOP_Cover_OK"
+}
