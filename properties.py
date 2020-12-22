@@ -52,6 +52,7 @@ class ApplicationProperties:
     CONFIG = get_config(os.path.join(HOME_MODULE_PATH, "config.json"))
 
     DATASET_DIRECTORY_PATH = os.path.join(HOME_MODULE_PATH, "dataset")
+    CROPPING_DIRECTORY_PATH = os.path.join(HOME_MODULE_PATH, "cropping")
 
     DEFAULT_RANDOM_SEED = 777
 
@@ -60,6 +61,43 @@ class ApplicationProperties:
 
     def __post_init__(self):
         Configuration.apply(random_seed=self.DEFAULT_RANDOM_SEED)
+
+
+@dataclass
+class CroppingProperties:
+    CROPPING_DIRECTORY_PATH = ApplicationProperties.CROPPING_DIRECTORY_PATH
+    HOME_MODULE_PATH = ApplicationProperties.HOME_MODULE_PATH
+    CONFIG = ApplicationProperties.CONFIG
+
+    # Mask
+    MASK_DIR_PATH = os.path.join(CROPPING_DIRECTORY_PATH, "mask")
+    HOUSING_MASK_DIR_PATH = os.path.join(MASK_DIR_PATH, "housing")
+    COVER_MASK_DIR_PATH = os.path.join(MASK_DIR_PATH, "cover")
+
+    HOUSING_CAM1_MASK_IMG_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "1.png")
+    HOUSING_CAM1_BOUNDARY_MASK_IMG_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "1_boundary.png")
+    HOUSING_CAM1_AREA_MASK_IMG_HOME_DIR_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "1", "area")
+
+    HOUSING_CAM2_MASK_IMG_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "2.png")
+    HOUSING_CAM2_BOUNDARY_MASK_IMG_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "2_boundary.png")
+    HOUSING_CAM2_AREA_MASK_IMG_HOME_DIR_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "2", "area")
+
+    HOUSING_CAM3_MASK_IMG_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "3.png")
+    HOUSING_CAM3_BOUNDARY_MASK_IMG_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "3_boundary.png")
+    HOUSING_CAM3_AREA_MASK_IMG_HOME_DIR_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "3", "area")
+
+    HOUSING_CAM4_MASK_IMG_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "4.png")
+    HOUSING_CAM4_BOUNDARY_MASK_IMG_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "4_boundary.png")
+    HOUSING_CAM4_AREA_MASK_IMG_HOME_DIR_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "4", "area")
+
+    COVER_CAM1_MASK_IMG_PATH = os.path.join(COVER_MASK_DIR_PATH, "1.png")
+    COVER_CAM1_BOUNDARY_MASK_IMG_PATH = os.path.join(COVER_MASK_DIR_PATH, "1_boundary.png")
+    COVER_CAM2_MASK_IMG_PATH = os.path.join(COVER_MASK_DIR_PATH, "2.png")
+    COVER_CAM2_BOUNDARY_MASK_IMG_PATH = os.path.join(COVER_MASK_DIR_PATH, "2_boundary.png")
+    COVER_CAM3_MASK_IMG_PATH = os.path.join(COVER_MASK_DIR_PATH, "3.png")
+    COVER_CAM3_BOUNDARY_MASK_IMG_PATH = os.path.join(COVER_MASK_DIR_PATH, "3_boundary.png")
+    COVER_CAM4_MASK_IMG_PATH = os.path.join(COVER_MASK_DIR_PATH, "4.png")
+    COVER_CAM4_BOUNDARY_MASK_IMG_PATH = os.path.join(COVER_MASK_DIR_PATH, "4_boundary.png")
 
 
 @dataclass
@@ -83,7 +121,7 @@ class DatasetProperties:
     COVER_OK_PATH = os.path.join(EOP_DATA_DIRECTORY_PATH, CONFIG["cover_OK_directory_name"])
 
     # Save Path
-    CROPPING_DATA_DIRECTORY_PATH = os.path.join(DATA_DIRECTORY_PATH, "cropping")
+    CROPPING_DATA_DIRECTORY_PATH = os.path.join(DATA_DIRECTORY_PATH, "cropping_old")
     DETECT_DATA_DIRECTORY_PATH = os.path.join(DATA_DIRECTORY_PATH, "detect")
     DEFECT_DATA_DIRECTORY_PATH = os.path.join(DATA_DIRECTORY_PATH, "defect")
 
@@ -103,4 +141,5 @@ class DatasetProperties:
 
 
 APPLICATION_PROPERTIES = ApplicationProperties()
+CROPPING_PROPERTIES = CroppingProperties()
 DATASET_PROPERTIES = DatasetProperties()
