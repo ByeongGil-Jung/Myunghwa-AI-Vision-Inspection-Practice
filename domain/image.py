@@ -52,8 +52,10 @@ class Coordinate(ImageDomain):
         return self.x, self.y
 
     def _get_properties(self, product, cam_number, crop_part):
-        from cropping_old.cam_properties import cam1_properties as c1p
-        from cropping_old.cam_properties import cam3_properties as c3p
+        from cropping.cam_properties import cam1_properties as c1p
+        from cropping.cam_properties import cam2_properties as c2p
+        from cropping.cam_properties import cam3_properties as c3p
+        from cropping.cam_properties import cam4_properties as c4p
 
         properties = None
 
@@ -89,6 +91,39 @@ class Coordinate(ImageDomain):
                     properties = c1p.CROP_GRID_14_VARIABLE
                 elif crop_part == "grid_15":
                     properties = c1p.CROP_GRID_15_VARIABLE
+            elif cam_number == 2:
+                if crop_part == "grid_1":
+                    properties = c2p.CROP_GRID_1_VARIABLE
+                elif crop_part == "grid_2":
+                    properties = c2p.CROP_GRID_2_VARIABLE
+                elif crop_part == "grid_3":
+                    properties = c2p.CROP_GRID_3_VARIABLE
+                elif crop_part == "grid_4":
+                    properties = c2p.CROP_GRID_4_VARIABLE
+                elif crop_part == "grid_5":
+                    properties = c2p.CROP_GRID_5_VARIABLE
+                elif crop_part == "grid_6":
+                    properties = c2p.CROP_GRID_6_VARIABLE
+                elif crop_part == "grid_7":
+                    properties = c2p.CROP_GRID_7_VARIABLE
+                elif crop_part == "grid_8":
+                    properties = c2p.CROP_GRID_8_VARIABLE
+                elif crop_part == "grid_9":
+                    properties = c2p.CROP_GRID_9_VARIABLE
+                elif crop_part == "grid_10":
+                    properties = c2p.CROP_GRID_10_VARIABLE
+                elif crop_part == "grid_11":
+                    properties = c2p.CROP_GRID_11_VARIABLE
+                elif crop_part == "grid_12":
+                    properties = c2p.CROP_GRID_12_VARIABLE
+                elif crop_part == "grid_13":
+                    properties = c2p.CROP_GRID_13_VARIABLE
+                elif crop_part == "grid_14":
+                    properties = c2p.CROP_GRID_14_VARIABLE
+                elif crop_part == "grid_15":
+                    properties = c2p.CROP_GRID_15_VARIABLE
+                elif crop_part == "grid_16":
+                    properties = c2p.CROP_GRID_16_VARIABLE
             elif cam_number == 3:
                 if crop_part == "grid_1":
                     properties = c3p.CROP_GRID_1_VARIABLE
@@ -124,6 +159,9 @@ class Coordinate(ImageDomain):
                     properties = c3p.CROP_GRID_16_VARIABLE
                 elif crop_part == "grid_17":
                     properties = c3p.CROP_GRID_17_VARIABLE
+            elif cam_number == 4:
+                if crop_part == "grid_1":
+                    properties = c3p.CROP_GRID_1_VARIABLE
         elif product == "cover":
             pass
 
@@ -147,6 +185,16 @@ class Coordinate(ImageDomain):
         if resize_ratio != 1.0:
             original_x = int((self.x * resize_ratio) + crop_properties.LEFT_UP_COORDINATE.x)
             original_y = int((self.y * resize_ratio) + crop_properties.LEFT_UP_COORDINATE.y)
+
+        return Coordinate(x=original_x, y=original_y)
+
+    def get_grid_to_original_coord_with_abst_bbox(self, abst_bbox, resize_ratio=2.0):
+        original_x = int(self.x)
+        original_y = int(self.y)
+
+        if resize_ratio != 1.0:
+            original_x = int((self.x * resize_ratio) + abst_bbox.x_st)
+            original_y = int((self.y * resize_ratio) + abst_bbox.y_st)
 
         return Coordinate(x=original_x, y=original_y)
 
@@ -320,17 +368,25 @@ class EOPImage(ImageDomain):
         plt.imshow(img)
         plt.show()
 
+
     def _get_converted_img(self, img):
         # If img is path of the image
         converted_img = None
 
+        # Image path
         if isinstance(img, str):
             with open(img, "rb") as f:
                 img = bytearray(f.read())
                 img = np.asarray(img, dtype=np.uint8)
-            img = cv2.imdecode(img, cv2.IMREAD_UNCHANGED)
-            converted_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            converted_img = cv2.imdecode(img, cv2.IMREAD_UNCHANGED)
+
+            # If gray image
+            if len(converted_img.shape) != 2:
+                converted_img = cv2.cvtColor(converted_img, cv2.COLOR_BGR2GRAY)
+
             converted_img = converted_img.astype(np.float32)
+
+        # Numpy array
         elif isinstance(img, np.ndarray):
             converted_img = img
             converted_img = converted_img.astype(np.float32)

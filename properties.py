@@ -51,8 +51,12 @@ class ApplicationProperties:
     HOME_MODULE_PATH = pathlib.Path(__file__).parent.absolute()
     CONFIG = get_config(os.path.join(HOME_MODULE_PATH, "config.json"))
 
-    DATASET_DIRECTORY_PATH = os.path.join(HOME_MODULE_PATH, "dataset")
     CROPPING_DIRECTORY_PATH = os.path.join(HOME_MODULE_PATH, "cropping")
+    DATASET_DIRECTORY_PATH = os.path.join(HOME_MODULE_PATH, "dataset")
+    DOMAIN_DIRECTORY_PATH = os.path.join(HOME_MODULE_PATH, "domain")
+    MODEL_DIRECTORY_PATH = os.path.join(HOME_MODULE_PATH, "model")
+    NOTEBOOK_DIRECTORY_PATH = os.path.join(HOME_MODULE_PATH, "notebook")
+    TRAINER_DIRECTORY_PATH = os.path.join(HOME_MODULE_PATH, "trainer")
 
     DEFAULT_RANDOM_SEED = 777
 
@@ -81,6 +85,8 @@ class CroppingProperties:
     HOUSING_CAM2_MASK_IMG_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "2.png")
     HOUSING_CAM2_BOUNDARY_MASK_IMG_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "2_boundary.png")
     HOUSING_CAM2_AREA_MASK_IMG_HOME_DIR_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "2", "area")
+    HOUSING_CAM2_AREA_C_INNER_MASK_IMG_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "2", "2_C_inner.png")
+    HOUSING_CAM2_AREA_C_OUTER_MASK_IMG_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "2", "2_C_outer.png")
 
     HOUSING_CAM3_MASK_IMG_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "3.png")
     HOUSING_CAM3_BOUNDARY_MASK_IMG_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "3_boundary.png")
@@ -89,6 +95,7 @@ class CroppingProperties:
     HOUSING_CAM4_MASK_IMG_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "4.png")
     HOUSING_CAM4_BOUNDARY_MASK_IMG_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "4_boundary.png")
     HOUSING_CAM4_AREA_MASK_IMG_HOME_DIR_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "4", "area")
+    HOUSING_CAM4_AREA_C_ENTIRE_MASK_IMG_PATH = os.path.join(HOUSING_MASK_DIR_PATH, "4", "4_C_entire.png")
 
     COVER_CAM1_MASK_IMG_PATH = os.path.join(COVER_MASK_DIR_PATH, "1.png")
     COVER_CAM1_BOUNDARY_MASK_IMG_PATH = os.path.join(COVER_MASK_DIR_PATH, "1_boundary.png")
@@ -102,6 +109,7 @@ class CroppingProperties:
 
 @dataclass
 class DatasetProperties:
+    DATASET_DIRECTORY_PATH = ApplicationProperties.DATASET_DIRECTORY_PATH
     HOME_MODULE_PATH = ApplicationProperties.HOME_MODULE_PATH
     CONFIG = ApplicationProperties.CONFIG
 
@@ -121,7 +129,7 @@ class DatasetProperties:
     COVER_OK_PATH = os.path.join(EOP_DATA_DIRECTORY_PATH, CONFIG["cover_OK_directory_name"])
 
     # Save Path
-    CROPPING_DATA_DIRECTORY_PATH = os.path.join(DATA_DIRECTORY_PATH, "cropping_old")
+    CROPPING_DATA_DIRECTORY_PATH = os.path.join(DATA_DIRECTORY_PATH, "cropping")
     DETECT_DATA_DIRECTORY_PATH = os.path.join(DATA_DIRECTORY_PATH, "detect")
     DEFECT_DATA_DIRECTORY_PATH = os.path.join(DATA_DIRECTORY_PATH, "defect")
 
@@ -140,6 +148,18 @@ class DatasetProperties:
     DEFECT_DISCOLOR = 8  # 변색
 
 
+@dataclass
+class ModelProperties:
+    MODEL_DIRECTORY_PATH = ApplicationProperties.MODEL_DIRECTORY_PATH
+    RESULT_DIRECTORY_PATH = os.path.join(MODEL_DIRECTORY_PATH, "results")
+    HOME_MODULE_PATH = ApplicationProperties.HOME_MODULE_PATH
+    CONFIG = ApplicationProperties.CONFIG
+
+    DEVICE_GPU = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    DEVICE_CPU = torch.device("cpu")
+
+
 APPLICATION_PROPERTIES = ApplicationProperties()
 CROPPING_PROPERTIES = CroppingProperties()
 DATASET_PROPERTIES = DatasetProperties()
+MODEL_PROPERTIES = ModelProperties()

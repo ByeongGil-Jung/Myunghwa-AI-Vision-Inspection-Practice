@@ -68,6 +68,17 @@ class CropperFactory(object):
                     cropper = HousingCam2CropperC(img_object, defect_list)
                 elif crop_part == "C_rectangle_middle":
                     cropper = HousingCam2CropperC(img_object, defect_list)
+                elif crop_part == "C_inner_entire":
+                    cropper = HousingCam2CropperC(img_object, defect_list)
+                elif crop_part == "C_outer_entire":
+                    cropper = HousingCam2CropperC(img_object, defect_list)
+
+                # Grid
+                elif crop_part.split("_")[0] == "grid":
+                    if is_mask:
+                        cropper = HousingCam2CropperGrid
+                    else:
+                        cropper = HousingCam2CropperGrid(img_object, defect_list)
             elif cam_number == 3:
                 if crop_part == "C_inner_ring":
                     cropper = HousingCam3CropperCInnerRing(img_object, defect_list)
@@ -111,8 +122,15 @@ class CropperFactory(object):
                     else:
                         cropper = HousingCam3CropperGrid(img_object, defect_list)
             elif cam_number == 4:
-                if crop_part == "C":
-                    cropper = HousingCam4CropperC(img_object, defect_list)
+                if crop_part == "C_entire":
+                    cropper = HousingCam4CropperCEntire(img_object, defect_list)
+
+                # Grid
+                elif crop_part.split("_")[0] == "grid":
+                    if is_mask:
+                        cropper = HousingCam4CropperGrid
+                    else:
+                        cropper = HousingCam4CropperGrid(img_object, defect_list)
         elif product == "cover":
             if cam_number == 1:
                 pass
@@ -314,6 +332,90 @@ class CropperFactory(object):
                         bbox_list=c2p.CROP_C_RECTANGLE_MIDDLE_VARIABLE.BBOX_LIST,
                         flip_index=c2p.CROP_C_RECTANGLE_MIDDLE_VARIABLE.FLIP_INDEX
                     )
+
+                elif crop_part == "C_inner_entire":
+                    properties = dict(
+                        bbox_list=c2p.CROP_C_INNER_ENTIRE_VARIABLE.BBOX_LIST,
+                        flip_index=c2p.CROP_C_INNER_ENTIRE_VARIABLE.FLIP_INDEX
+                    )
+                elif crop_part == "C_outer_entire":
+                    properties = dict(
+                        bbox_list=c2p.CROP_C_OUTER_ENTIRE_VARIABLE.BBOX_LIST,
+                        flip_index=c2p.CROP_C_OUTER_ENTIRE_VARIABLE.FLIP_INDEX
+                    )
+
+                # Grid
+                elif crop_part == "grid_entire":
+                    properties = dict(
+                        bbox_list=c2p.CROP_GRID_ENTIRE_VARIABLE.BBOX_LIST
+                    )
+
+                elif crop_part == "grid_1":
+                    properties = dict(
+                        bbox_list=c2p.CROP_GRID_1_VARIABLE.BBOX_LIST
+                    )
+                elif crop_part == "grid_2":
+                    properties = dict(
+                        bbox_list=c2p.CROP_GRID_2_VARIABLE.BBOX_LIST
+                    )
+                elif crop_part == "grid_3":
+                    properties = dict(
+                        bbox_list=c2p.CROP_GRID_3_VARIABLE.BBOX_LIST
+                    )
+                elif crop_part == "grid_4":
+                    properties = dict(
+                        bbox_list=c2p.CROP_GRID_4_VARIABLE.BBOX_LIST
+                    )
+
+                elif crop_part == "grid_5":
+                    properties = dict(
+                        bbox_list=c2p.CROP_GRID_5_VARIABLE.BBOX_LIST
+                    )
+                elif crop_part == "grid_6":
+                    properties = dict(
+                        bbox_list=c2p.CROP_GRID_6_VARIABLE.BBOX_LIST
+                    )
+                elif crop_part == "grid_7":
+                    properties = dict(
+                        bbox_list=c2p.CROP_GRID_7_VARIABLE.BBOX_LIST
+                    )
+                elif crop_part == "grid_8":
+                    properties = dict(
+                        bbox_list=c2p.CROP_GRID_8_VARIABLE.BBOX_LIST
+                    )
+
+                elif crop_part == "grid_9":
+                    properties = dict(
+                        bbox_list=c2p.CROP_GRID_9_VARIABLE.BBOX_LIST
+                    )
+                elif crop_part == "grid_10":
+                    properties = dict(
+                        bbox_list=c2p.CROP_GRID_10_VARIABLE.BBOX_LIST
+                    )
+                elif crop_part == "grid_11":
+                    properties = dict(
+                        bbox_list=c2p.CROP_GRID_11_VARIABLE.BBOX_LIST
+                    )
+                elif crop_part == "grid_12":
+                    properties = dict(
+                        bbox_list=c2p.CROP_GRID_12_VARIABLE.BBOX_LIST
+                    )
+                elif crop_part == "grid_13":
+                    properties = dict(
+                        bbox_list=c2p.CROP_GRID_13_VARIABLE.BBOX_LIST
+                    )
+                elif crop_part == "grid_14":
+                    properties = dict(
+                        bbox_list=c2p.CROP_GRID_14_VARIABLE.BBOX_LIST
+                    )
+                elif crop_part == "grid_15":
+                    properties = dict(
+                        bbox_list=c2p.CROP_GRID_15_VARIABLE.BBOX_LIST
+                    )
+                elif crop_part == "grid_16":
+                    properties = dict(
+                        bbox_list=c2p.CROP_GRID_16_VARIABLE.BBOX_LIST
+                    )
             elif cam_number == 3:
                 if crop_part == "C_inner_ring":
                     properties = dict(
@@ -497,8 +599,18 @@ class CropperFactory(object):
                         bbox_list=c3p.CROP_GRID_17_VARIABLE.BBOX_LIST
                     )
             elif cam_number == 4:
-                if crop_part == "C":
-                    properties = dict()
+                if crop_part == "C_entire":
+                    properties = dict(
+                        bbox=c4p.CROP_C_ENTIRE_VARIABLE.BBOX
+                    )
+                elif crop_part == "grid_1":
+                    properties = dict(
+                        first_crop_x_st=c4p.CROP_GRID_1_VARIABLE.FIRST_CROP_X_ST,
+                        crop_size=c4p.CROP_GRID_1_VARIABLE.CROP_SIZE,
+                        first_crop_y_ed=c4p.CROP_GRID_1_VARIABLE.FIRST_CROP_Y_ST,
+                        crop_empty_space_y_gap=c4p.CROP_GRID_1_VARIABLE.CROP_EMPTY_SPACE_Y_GAP,
+                        crop_y_gap=c4p.CROP_GRID_1_VARIABLE.CROP_Y_GAP
+                    )
         elif product == "cover":
             if cam_number == 1:
                 pass

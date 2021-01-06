@@ -1,11 +1,11 @@
 import os
 
+from cropping.cam_properties import cam3_properties as c3p
 from cropping.cropper.base import HousingCropper
 from cropping.cropper.crop_helper import RingCropHelper, CircleCropHelper
 from cropping.cropper.figure import *
 from domain.image import Coordinate, BoundingBox, EOPImage, Defect
 from properties import CROPPING_PROPERTIES
-from cropping.cam_properties import cam3_properties as c3p
 
 
 class HousingCam3Cropper(HousingCropper):
